@@ -1,0 +1,178 @@
+# ────────────────────────────────
+# MYSQL
+# ────────────────────────────────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vprodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vprodb
+  template:
+    metadata:
+      labels:
+        app: vprodb
+    spec:
+      containers:
+        - name: vprodb
+          image: abroor/vprofiledb:latest
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: vprodbpass
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vprodb
+spec:
+  selector:
+    app: vprodb
+  ports:
+    - port: 3306
+      targetPort: 3306
+
+---
+# ────────────────────────────────
+# MEMCACHE
+# ────────────────────────────────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vpromc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vpromc
+  template:
+    metadata:
+      labels:
+        app: vpromc
+    spec:
+      containers:
+        - name: vpromc
+          image: memcached
+          ports:
+            - containerPort: 11211
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vprocache01
+spec:
+  selector:
+    app: vpromc
+  ports:
+    - port: 11211
+      targetPort: 11211
+
+---
+# ────────────────────────────────
+# RABBITMQ
+# ────────────────────────────────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vpromq01
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vpromq01
+  template:
+    metadata:
+      labels:
+        app: vpromq01
+    spec:
+      containers:
+        - name: vpromq01
+          image: rabbitmq
+          ports:
+            - containerPort: 5672
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vpromq01
+spec:
+  selector:
+    app: vpromq01
+  ports:
+    - port: 5672
+      targetPort: 5672
+
+---
+# ────────────────────────────────
+# TOMCAT APP
+# ────────────────────────────────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vproapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vproapp
+  template:
+    metadata:
+      labels:
+        app: vproapp
+    spec:
+      containers:
+        - name: vproapp
+          image: abroor/vprofileapp:latest
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vproapp
+spec:
+  selector:
+    app: vproapp
+  ports:
+    - port: 8080
+      targetPort: 8080
+
+---
+# ────────────────────────────────
+# NGINX FRONTEND
+# ────────────────────────────────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vproweb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vproweb
+  template:
+    metadata:
+      labels:
+        app: vproweb
+    spec:
+      containers:
+        - name: vproweb
+          image: abroor/vprofileweb:latest
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vproweb
+spec:
+  selector:
+    app: vproweb
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30080
