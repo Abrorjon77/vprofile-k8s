@@ -1,0 +1,22 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets / sensitive values
+secrets.yaml
+*-secret.yaml
+*.env
+.env*
+
+# Helm
+*.tgz
+charts/
+.helm/
+
+# Kubernetes
+kubeconfig
+*.kubeconfig
+
+# IDE
+.vscode/
+.idea/
