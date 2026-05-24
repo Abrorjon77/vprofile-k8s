@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vproweb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vproweb
+  template:
+    metadata:
+      labels:
+        app: vproweb
+    spec:
+      containers:
+        - name: vproweb
+          image: abroor/vprofileweb:latest
+          ports:
+            - containerPort: 80
