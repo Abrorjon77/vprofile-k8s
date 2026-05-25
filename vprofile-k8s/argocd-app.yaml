@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/<your-username>/<your-repo>
+    repoURL: https://github.com/Abrorjon77/vprofile-k8s.git
     targetRevision: HEAD
     path: vprofile-k8s/helm/vprofile
     helm:
