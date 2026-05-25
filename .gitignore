@@ -5,6 +5,9 @@ Thumbs.db
 # Secrets / sensitive values
 secrets.yaml
 *-secret.yaml
+*-secrets.yaml
+values-secret.yaml
+values-secrets.yaml
 *.env
 .env*
 
