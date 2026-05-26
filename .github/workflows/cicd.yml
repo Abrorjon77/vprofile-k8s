@@ -49,8 +49,8 @@ jobs:
           context: ./vprofile-k8s
           push: true
           tags: |
-            abroor/vprofileapp:${{ github.sha }}
-            abroor/vprofileapp:latest
+            your-dockerhub-username/vprofileapp:${{ github.sha }}
+            your-dockerhub-username/vprofileapp:latest
 
   # ─── JOB 3: UPDATE HELM VALUES & TRIGGER ARGOCD ─────────────────────────────
   deploy:
@@ -70,7 +70,7 @@ jobs:
 
       - name: Update image tags in values.yaml
         run: |
-          yq e ".app.image = \"abroor/vprofileapp:${{ github.sha }}\"" -i vprofile-k8s/helm/vprofile/values.yaml
+          yq e ".app.image = \"your-dockerhub-username/vprofileapp:${{ github.sha }}\"" -i vprofile-k8s/helm/vprofile/values.yaml
 
       - name: Commit and push updated values.yaml
         run: |

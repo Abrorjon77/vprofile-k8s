@@ -17,12 +17,12 @@ spec:
     spec:
       containers:
         - name: vprodb
-          image: abroor/vprofiledb:latest
+          image: your-dockerhub-username/vprofiledb:latest
           ports:
             - containerPort: 3306
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: vprodbpass
+              value: your-db-password
 ---
 apiVersion: v1
 kind: Service
@@ -125,7 +125,7 @@ spec:
     spec:
       containers:
         - name: vproapp
-          image: abroor/vprofileapp:latest
+          image: your-dockerhub-username/vprofileapp:latest
           ports:
             - containerPort: 8080
 ---
@@ -160,7 +160,7 @@ spec:
     spec:
       containers:
         - name: vproweb
-          image: abroor/vprofileweb:latest
+          image: your-dockerhub-username/vprofileweb:latest
           ports:
             - containerPort: 80
 ---

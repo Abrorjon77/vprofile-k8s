@@ -16,6 +16,7 @@ Complete guide to install all tools, deploy the app with Helm, and set up ArgoCD
 8. [See Changes in ArgoCD](#8-see-changes-in-argocd)
 9. [Push to GitHub](#9-push-to-github)
 10. [Useful Commands](#10-useful-commands)
+11. [Full Recovery After Deleting Minikube](#11-full-recovery-after-deleting-minikube)
 
 ---
 
@@ -135,7 +136,7 @@ All configurable values are in `helm/vprofile/values.yaml`:
 
 ```yaml
 db:
-  image: abroor/vprofiledb:latest
+  image: your-dockerhub-username/vprofiledb:latest
   replicas: 1
   port: 3306
   rootPassword: ""           # keep empty here, use values-secret.yaml
@@ -151,12 +152,12 @@ rabbitmq:
   port: 5672
 
 app:
-  image: abroor/vprofileapp:latest
+  image: your-dockerhub-username/vprofileapp:latest
   replicas: 1
   port: 8080
 
 web:
-  image: abroor/vprofileweb:latest
+  image: your-dockerhub-username/vprofileweb:latest
   replicas: 1
   port: 80
   nodePort: 30080
@@ -173,7 +174,7 @@ web:
 **Change an image tag:**
 ```yaml
 app:
-  image: abroor/vprofileapp:v2
+  image: your-dockerhub-username/vprofileapp:v2
 ```
 
 **Change a port:**
@@ -211,7 +212,7 @@ Never put real passwords in `values.yaml` — it gets pushed to GitHub.
 Create a local file `helm/vprofile/values-secret.yaml` (this file is in `.gitignore`):
 ```yaml
 db:
-  rootPassword: vprodbpass
+  rootPassword: <your-db-password>
 ```
 
 Then deploy with both files:
@@ -315,7 +316,7 @@ This tells ArgoCD to watch your GitHub repo and deploy from `vprofile-k8s/helm/v
 Make sure `argocd-app.yaml` has the correct repo and branch:
 ```yaml
 source:
-  repoURL: https://github.com/Abrorjon77/vprofile-k8s.git
+  repoURL: https://github.com/your-username/your-repo.git
   targetRevision: master
   path: vprofile-k8s/helm/vprofile
 ```
@@ -431,4 +432,64 @@ argocd app list              # list all apps
 argocd app get vprofile      # app details and status
 argocd app sync vprofile     # force sync now
 argocd app history vprofile  # deployment history
+```
+
+---
+
+## 11. Full Recovery After Deleting Minikube
+
+Everything lives in your GitHub repo — nothing is lost when you delete Minikube. Follow these steps to get back to a fully running state.
+
+### Step 1 — Start Minikube
+
+```bash
+minikube start --cpus 2 --memory 4096
+```
+
+### Step 2 — Clone your repo
+
+```bash
+git clone https://github.com/<your-username>/<your-repo>.git
+cd <your-repo>
+```
+
+### Step 3 — Deploy the app with Helm
+
+```bash
+helm install vprofile helm/vprofile/
+```
+
+### Step 4 — Install ArgoCD
+
+```bash
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+# Wait for all pods to be ready
+kubectl get pods -n argocd -w
+```
+
+### Step 5 — Connect ArgoCD to your repo
+
+```bash
+kubectl apply -f argocd-app.yaml
+```
+
+### Step 6 — Get ArgoCD password and open UI
+
+```bash
+# Forward the port
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+
+# Get the password
+kubectl get secret argocd-initial-admin-secret -n argocd \
+  -o jsonpath="{.data.password}" | base64 -d && echo
+```
+
+Open `https://localhost:8080` and login with `admin` and the password above.
+
+### Step 7 — Access the app
+
+```bash
+minikube service vproweb --url
 ```

@@ -6,9 +6,9 @@ stages:
 
 variables:
   DOCKER_REGISTRY: docker.io
-  APP_IMAGE: abroor/vprofileapp
-  WEB_IMAGE: abroor/vprofileweb
-  DB_IMAGE: abroor/vprofiledb
+  APP_IMAGE: your-dockerhub-username/vprofileapp
+  WEB_IMAGE: your-dockerhub-username/vprofileweb
+  DB_IMAGE: your-dockerhub-username/vprofiledb
   HELM_CHART_PATH: vprofile-k8s/helm/vprofile
 
 # ─── STAGE 1: TEST ───────────────────────────────────────────────────────────

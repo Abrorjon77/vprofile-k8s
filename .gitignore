@@ -2,24 +2,36 @@
 .DS_Store
 Thumbs.db
 
-# Secrets / sensitive values
+# Secrets / sensitive values — never push these
 secrets.yaml
 *-secret.yaml
 *-secrets.yaml
 values-secret.yaml
 values-secrets.yaml
+values-local.yaml
+local-config.yaml
 *.env
-.env*
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Kubernetes credentials
+kubeconfig
+*.kubeconfig
+kube-config.yaml
 
 # Helm
 *.tgz
 charts/
 .helm/
 
-# Kubernetes
-kubeconfig
-*.kubeconfig
-
 # IDE
 .vscode/
 .idea/
+*.iml
+
+# Logs
+*.log

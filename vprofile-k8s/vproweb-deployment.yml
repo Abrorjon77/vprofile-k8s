@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: vproweb
-          image: abroor/vprofileweb:latest
+          image: your-dockerhub-username/vprofileweb:latest
           ports:
             - containerPort: 80
