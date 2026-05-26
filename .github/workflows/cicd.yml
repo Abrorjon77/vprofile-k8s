@@ -43,20 +43,11 @@ jobs:
       - name: Build and push app image
         uses: docker/build-push-action@v5
         with:
-          context: ./app
+          context: ./vprofile-k8s
           push: true
           tags: |
             abroor/vprofileapp:${{ github.sha }}
             abroor/vprofileapp:latest
-
-      - name: Build and push web image
-        uses: docker/build-push-action@v5
-        with:
-          context: ./web
-          push: true
-          tags: |
-            abroor/vprofileweb:${{ github.sha }}
-            abroor/vprofileweb:latest
 
   # ─── JOB 3: UPDATE HELM VALUES & TRIGGER ARGOCD ─────────────────────────────
   deploy:
