@@ -12,7 +12,7 @@ rabbitmq:
   replicas: 1
   port: 5672
 app:
-  image: abroor/vprofileapp:f4dd03373766224c091692d1d9cf30f7dfedd77d
+  image: abroor/vprofileapp:44542da2a0901b62fafd4cb32f203f33a3938dde
   replicas: 1
   port: 8080
 web:
