@@ -3,24 +3,20 @@ db:
   replicas: 1
   port: 3306
   rootPassword: vprodbpass
-
 memcache:
   image: memcached
   replicas: 1
   port: 11211
-
 rabbitmq:
   image: rabbitmq
   replicas: 1
   port: 5672
-
 app:
-  image: abroor/vprofileapp:latest
+  image: abroor/vprofileapp:f4dd03373766224c091692d1d9cf30f7dfedd77d
   replicas: 1
   port: 8080
-
 web:
-  image: abroor/vprofileweb:latest
+  image: abroor/vprofileweb:f4dd03373766224c091692d1d9cf30f7dfedd77d
   replicas: 2
   port: 80
   nodePort: 30080
