@@ -23,6 +23,7 @@ jobs:
 
       - name: Run tests
         run: mvn test
+        working-directory: vprofile-k8s
 
   # ─── JOB 2: BUILD & PUSH DOCKER IMAGES ──────────────────────────────────────
   build-and-push:
