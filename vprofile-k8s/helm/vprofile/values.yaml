@@ -15,7 +15,11 @@ rabbitmq:
   port: 5672
 
 app:
+<<<<<<< HEAD
   image: your-dockerhub-username/vprofileapp:latest
+=======
+  image: abroor/vprofileapp:44542da2a0901b62fafd4cb32f203f33a3938dde
+>>>>>>> 09b504a7c02438b3835831d1d8b06943e2324340
   replicas: 1
   port: 8080
 
