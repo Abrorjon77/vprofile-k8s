@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: vprodb
-          image: your-dockerhub-username/vprofiledb:latest
+          image: abrorjon77/vprofiledb:latest
           ports:
             - containerPort: 3306
           env:

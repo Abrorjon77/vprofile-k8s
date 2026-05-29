@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: vproapp
-          image: your-dockerhub-username/vprofileapp:latest
+          image: abrorjon77/vprofileapp:latest
           ports:
             - containerPort: 8080

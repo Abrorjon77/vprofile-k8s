@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: vprodb
-          image: your-dockerhub-username/vprofiledb:latest
+          image: abrorjon77/vprofiledb:latest
           ports:
             - containerPort: 3306
           env:
@@ -125,7 +125,7 @@ spec:
     spec:
       containers:
         - name: vproapp
-          image: your-dockerhub-username/vprofileapp:latest
+          image: abrorjon77/vprofileapp:latest
           ports:
             - containerPort: 8080
 ---
@@ -160,7 +160,7 @@ spec:
     spec:
       containers:
         - name: vproweb
-          image: your-dockerhub-username/vprofileweb:latest
+          image: abrorjon77/vprofileweb:latest
           ports:
             - containerPort: 80
 ---

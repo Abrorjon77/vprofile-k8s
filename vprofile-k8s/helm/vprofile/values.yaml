@@ -1,5 +1,5 @@
 db:
-  image: your-dockerhub-username/vprofiledb:latest
+  image: abrorjon77/vprofiledb:latest
   replicas: 1
   port: 3306
   rootPassword: ""
@@ -15,12 +15,12 @@ rabbitmq:
   port: 5672
 
 app:
-  image: your-dockerhub-username/vprofileapp:latest
+  image: abrorjon77/vprofileapp:latest
   replicas: 1
   port: 8080
 
 web:
-  image: your-dockerhub-username/vprofileweb:latest
+  image: abrorjon77/vprofileweb:latest
   replicas: 2
   port: 80
   nodePort: 30080

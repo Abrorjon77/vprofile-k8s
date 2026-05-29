@@ -136,7 +136,7 @@ All configurable values are in `helm/vprofile/values.yaml`:
 
 ```yaml
 db:
-  image: your-dockerhub-username/vprofiledb:latest
+  image: abrorjon77/vprofiledb:latest
   replicas: 1
   port: 3306
   rootPassword: ""           # keep empty here, use values-secret.yaml
@@ -152,12 +152,12 @@ rabbitmq:
   port: 5672
 
 app:
-  image: your-dockerhub-username/vprofileapp:latest
+  image: abrorjon77/vprofileapp:latest
   replicas: 1
   port: 8080
 
 web:
-  image: your-dockerhub-username/vprofileweb:latest
+  image: abrorjon77/vprofileweb:latest
   replicas: 1
   port: 80
   nodePort: 30080
@@ -174,7 +174,7 @@ web:
 **Change an image tag:**
 ```yaml
 app:
-  image: your-dockerhub-username/vprofileapp:v2
+  image: abrorjon77/vprofileapp:v2
 ```
 
 **Change a port:**
@@ -316,7 +316,7 @@ This tells ArgoCD to watch your GitHub repo and deploy from `vprofile-k8s/helm/v
 Make sure `argocd-app.yaml` has the correct repo and branch:
 ```yaml
 source:
-  repoURL: https://github.com/your-username/your-repo.git
+  repoURL: https://github.com/Abrorjon77/vprofile-k8s.git
   targetRevision: master
   path: vprofile-k8s/helm/vprofile
 ```
@@ -449,7 +449,7 @@ minikube start --cpus 2 --memory 4096
 ### Step 2 — Clone your repo
 
 ```bash
-git clone https://github.com/<your-username>/<your-repo>.git
+git clone https://github.com/Abrorjon77/vprofile-k8s.git
 cd <your-repo>
 ```
 
